@@ -13,45 +13,44 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.matheus.marketplace.infra.entity.UsuarioEntity;
-import com.matheus.marketplace.infra.service.UsuarioService;
+import com.matheus.marketplace.infra.entity.AdmEntity;
+import com.matheus.marketplace.infra.service.AdmService;
 
 @RestController
-@RequestMapping("/api/usuario")
-public class UsuarioController {
+@RequestMapping("/api/administrador")
+public class AdmController {
 	
 	@Autowired
-	private UsuarioService usuarioService;
-	
+	private AdmService admService;
+
 	@PostMapping
-	public ResponseEntity<UsuarioEntity> create(@RequestBody UsuarioEntity usuario) {
-		UsuarioEntity novoUsuario = usuarioService.create(usuario);
-		return ResponseEntity.ok(novoUsuario);
+	public ResponseEntity<AdmEntity> create(@RequestBody AdmEntity adm) {
+		AdmEntity novoadm = admService.create(adm);
+		return ResponseEntity.ok(novoadm);
 	}
 	
 	@GetMapping
-	public List<UsuarioEntity> findAll() {
-		return usuarioService.findAll();
+	public List<AdmEntity> findAll() {
+		return admService.findAll();
 	}
 	
 	@GetMapping("/{id}") 
-	public ResponseEntity<UsuarioEntity> findById(@PathVariable String id) {
-		return usuarioService.findById(id)
+	public ResponseEntity<AdmEntity> findById(@PathVariable String id) {
+		return admService.findById(id)
 				.map(ResponseEntity::ok)
 				.orElse(ResponseEntity.notFound().build());
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<UsuarioEntity> update(@PathVariable String id, @RequestBody UsuarioEntity usuario) {
+	public ResponseEntity<AdmEntity> update(@PathVariable String id, @RequestBody AdmEntity adm) {
 		return ResponseEntity.ok(
-				usuarioService.update(id, usuario)
+				admService.update(id, adm)
 				);
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable String id) {
-		usuarioService.delete(id);
+		admService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
-
 }
